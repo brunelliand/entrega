@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-group">
+            <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="Procurar..." />
+        </form>
+        <a class="btn btn-outline-info" ng-click="vm.add()">Novo registro</a>
+    </nav>
+    <div>
+        <h2>{{vm.nome}}</h2>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+
+                <th width="5%" scope="col">Recibo</th>
+                <th width="15%" scope="col">Descricao</th>
+                <th width="15%" scope="col">Tipo</th>
+                <th width="15%" scope="col">Forma de pagamento</th>
+                <th width="10%" scope="col">Bandeira</th>
+                <th width="15%" scope="col">Valor</th>
+                <th width="10%" scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <form name="lancamentoForm">
+
+
+                <tr ng-repeat="record in vm.records" name="lancto">
+                    <td>
+                        <input type="text" name="recibo" class="form-control" ng-model="record.recibo" ng-required="true" ng-minlength="1" />
+                    </td>
+                    <td>
+                        <input type="text" name="descricao" class="form-control" ng-model="record.descricao" ng-required="true" ng-minlength="3"
+                        />
+                    </td>
+                    <td>
+                        <input type="text" name="tipo" class="form-control" ng-model="record.tipo" />
+
+                    </td>
+                    <td>
+                        <select name="moeda" ng-model="record.moeda" class="form-control">
+                            <option value="DINHEIRO">Dinheiro</option>
+                            <option value="CARTAO_DEBITO">Débito</option>
+                            <option value="CARTAO_CREDITO">Crédito</option>
+                            <option value="CHEQUE">Cheque</option>
+                            <option value="CREDIARIO">Crediário</option>
+                            <option value="FIADO">Fiado</option>
+                            <option value="CONSIGNADO">Consignado</option>
+                            <option value="OUTROS">Outros</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="bandeira" ng-model="record.bandeira" class="form-control">
+                            <option value="VISA">Visa</option>
+                            <option value="MASTER">Master</option>
+                            <option value="CIELO">Cielo</option>
+                            <option value="OUTROS">Outros</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" ui-number-mask name="valor" class="form-control"
+                            ng-model="record.valor" />
+                    </td>
+
+                    <td class="text-center">
+                        <i class="fa fa-trash-o" aria-hidden="true" ng-click="vm.excluir($index,record.id)" title="Delete" aria-hidden="true"></i>
+                        <i class="fa fa-plus-circle" ng-if="$last && record.id" ng-click="vm.add()" title="Add" aria-hidden="true"></i>
+                        <i class="fa fa-floppy-o" ng-if="lancamentoForm.$valid" ng-click="vm.save(record)" title="Salvar" aria-hidden="true"></i>
+                    </td>
+                </tr>
+            </form>
+        </tbody>
+    </table>
+</div>
